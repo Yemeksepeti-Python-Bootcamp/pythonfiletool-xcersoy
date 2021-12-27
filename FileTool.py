@@ -20,12 +20,16 @@ class FileTool():
                 file.truncate()
                 deleteOption = input("Satir numarasina gore silmek icin 'n', girilecek metne gore silmek icin 't' karakterini yaziniz:\n")
                 if deleteOption == "n":
-                    linesToDelete = [int(x) for x in input("Silinecek satir numarasini veya numaralarini arada bosluk olacak sekilde giriniz: ").split()]
+                    linesToDelete = [int(x) for x in input("Silinecek satir numarasini veya numaralarini arada virgul olacak sekilde giriniz: ").split(',')]
                     for number, line in enumerate(content):
                         if number+1 not in linesToDelete:
                             file.write(line)
                 if deleteOption == "t":
-                    pass
+                    linesToDelete = [x for x in input("Girilecek metni veya metinleri iceren satirlarin silinecegi metni veya metinleri arada virgul olacak sekilde giriniz:\n").split(',')]
+                    for searchWord in linesToDelete:
+                        for number, line in enumerate(content):
+                            if searchWord not in line:
+                                file.write(line)
 
 fileTool = FileTool()
 fileTool.Menu("letter_frequency.csv")
