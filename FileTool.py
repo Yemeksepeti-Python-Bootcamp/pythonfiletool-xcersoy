@@ -13,8 +13,14 @@ class FileTool():
                 if searchStr in line:
                     counter += 1
                     searchStrLines.append(line)
-            print(f"{searchStr} kelimesi {path} dosyasında {counter} kere asagidaki satirlarda gecmektedir:")
+            print(f"{searchStr} metni {path} dosyasında {counter} kere asagidaki satirlarda gecmektedir:")
             print(*searchStrLines,end="\n")
+        if input_ == "d":
+            deleteOption = input("Satir numarasina gore silmek icin 'n', girilecek metne gore silmek icin 't' karakterini yaziniz.")
+            if deleteOption == "n":
+                pass
+            if deleteOption == "t":
+                pass
 
 fileTool = FileTool()
 fileTool.Menu("letter_frequency.csv")
