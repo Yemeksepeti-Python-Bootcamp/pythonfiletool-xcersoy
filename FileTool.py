@@ -25,10 +25,10 @@ class FileTool():
                         if number+1 not in lineNoToDelete:
                             file.write(line)
                 if deleteOption == "t":
-                    wordToDelete = [x for x in input("Girilecek metni veya metinleri iceren satirlarin silinecegi metni veya metinleri arada virgul olacak sekilde giriniz:\n").split(',')]
-                    for word in wordToDelete:
+                    strToDelete = [x for x in input("Girilecek metni veya metinleri iceren satirlarin silinecegi metni veya metinleri arada virgul olacak sekilde giriniz:\n").split(',')]
+                    for str_ in strToDelete:
                         for number, line in enumerate(content):
-                            if word not in line:
+                            if str_ not in line:
                                 file.write(line)
             if input_ == "a":
                 lineToAppend = input("Dosyaya eklenecek satiri giriniz:\n")
@@ -37,6 +37,15 @@ class FileTool():
                     if file_eof == '':
                         file.write("\n"+lineToAppend)
                         break
+            if input_ == "u":
+                file.seek(0)
+                file.truncate()
+                updateOption = input("Satirlarda girilen metni guncellemek icin 'w', bir satırı tamamen guncellemek icin 'r' karakterini giriniz:\n")
+                if updateOption == "w":
+                    oldStr = input("Degistirilecek metni giriniz:\n")
+                    newStr = input("Yeni metni giriniz:\n")
+                    for number, line in enumerate(content):
+                        file.write(line.replace(oldStr,newStr))
 
 fileTool = FileTool()
 fileTool.Menu("letter_frequency.csv")
