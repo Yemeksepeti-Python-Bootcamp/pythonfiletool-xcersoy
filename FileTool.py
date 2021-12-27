@@ -40,12 +40,10 @@ class FileTool():
             if input_ == "u":
                 file.seek(0)
                 file.truncate()
-                updateOption = input("Satirlarda girilen metni guncellemek icin 'w', bir satırı tamamen guncellemek icin 'r' karakterini giriniz:\n")
-                if updateOption == "w":
-                    oldStr = input("Degistirilecek metni giriniz:\n")
-                    newStr = input("Yeni metni giriniz:\n")
-                    for number, line in enumerate(content):
-                        file.write(line.replace(oldStr,newStr))
+                oldStr = input("Degistirilecek metni giriniz:\n")
+                newStr = input("Yeni metni giriniz:\n")
+                for number, line in enumerate(content):
+                    file.write(line.replace(oldStr,newStr))
 
 fileTool = FileTool()
 fileTool.Menu("letter_frequency.csv")
