@@ -1,6 +1,9 @@
 import csv, json
 
 class FileToolClass():
+    def __init__(self):
+        print("Varolan bir dosya üzerinde islem yapmak icin FileOperations() metodunu, basliklari ile birlikte yeni bir CSV dosyası yaratmak icin NewFile() metodunu cagiriniz.")
+    
     def FileOperations(self,path):
         with open(path,"r+",encoding="utf-8") as file:
             content = file.readlines()
@@ -50,3 +53,11 @@ class FileToolClass():
                 jsonDataLineStr = jsonData[int(lineNo)-2].replace("\\\"","")
                 print(jsonDataLineStr)
                 return jsonDataLineStr
+
+    def NewFile(self,fields):
+        newFileDecision = input("Yaratilacak CSV dosyasinin basliklarini belirlemek isterseniz 'y', sutun numarası bazinda otomatik belirlenmesini isterseniz 'n' karakterini giriniz:\n")
+        if newFileDecision == "y":
+            pass
+        if newFileDecision =="n":
+            pass
+
