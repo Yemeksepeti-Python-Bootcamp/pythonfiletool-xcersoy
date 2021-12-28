@@ -2,7 +2,7 @@ import csv, json
 
 class FileToolClass():
     def __init__(self):
-        print("Varolan bir dosya üzerinde islem yapmak icin FileOperations() metodunu, basliklari ile birlikte yeni bir CSV dosyası yaratmak icin NewFile() metodunu cagiriniz.")
+        print("\n* Varolan bir dosya üzerinde islem yapmak icin FileOperations() metodunu\n* Basliklarini sizin belirlediginiz yeni bir CSV dosyası yaratmak icin NewFile() metodunu [OR: NewFile(\"ad\",\"soyad\")]\n* Basliklarin sutun sayisina gore otomatik yaratildigi yeni bir CSV dosyasi yaratmak icin NewFileAuto() metodunu cagiriniz.\n")
     
     def FileOperations(self,path):
         with open(path,"r+",encoding="utf-8") as file:
@@ -54,10 +54,19 @@ class FileToolClass():
                 print(jsonDataLineStr)
                 return jsonDataLineStr
 
-    def NewFile(self,fields):
-        newFileDecision = input("Yaratilacak CSV dosyasinin basliklarini belirlemek isterseniz 'y', sutun numarası bazinda otomatik belirlenmesini isterseniz 'n' karakterini giriniz:\n")
-        if newFileDecision == "y":
-            pass
-        if newFileDecision =="n":
-            pass
+    def NewFile(self,*fields):
+        fileName = input("Yaratilacak CSV dosyasinin ismini giriniz:\n")
+        with open(fileName+".csv","w+",encoding="utf-8") as newFile:
+            newFile.write(fields)
 
+    def NewFileAuto(self):
+        fileName = input("Yaratilacak CSV dosyasinin ismini giriniz:\n")
+        colCount = input("Yeni dosya kac sutundan olusmalidir?:\n")
+        i = 0
+        while i < colCount:
+            titles = titles + i+1 + ","
+        with open(fileName+".csv","w+",encoding="utf-8") as newFile:
+            newFile.write(titles)
+        
+
+        
