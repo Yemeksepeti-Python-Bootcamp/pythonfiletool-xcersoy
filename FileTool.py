@@ -1,10 +1,10 @@
+import csv, json
+
 class FileTool():
-    def __init__(self):
-        print("Konsol islemleri icin Menu() metodunu, dosya islemleri icin FileOperations() metodunu cagiriniz.")
-    def Menu(self,path):
-        with open(path,"r+") as file:
+    def SelectFileOperation(self,path):
+        with open(path,"r+",encoding="utf-8") as file:
             content = file.readlines()
-            input_ = input("Dosyada arama yapmak icin 's', silme yapmak icin 'd', ekleme yapmak icin 'a', guncelleme yapmak icin 'u' karakterini yaziniz:\n")
+            input_ = input("Dosyada arama yapmak icin 's', silme yapmak icin 'd', ekleme yapmak icin 'a', guncelleme yapmak icin 'u', belli bir satırı JSON'a cevirmek icin 'j' karakterini yaziniz:\n")
             if input_ == "s":
                 counter = 0
                 searchStrLines = []
@@ -20,7 +20,7 @@ class FileTool():
                 file.truncate()
                 deleteOption = input("Satir numarasina gore silmek icin 'n', girilecek metne gore silmek icin 't' karakterini yaziniz:\n")
                 if deleteOption == "n":
-                    lineNoToDelete = [int(x) for x in input("Silinecek satir numarasini veya numaralarini arada virgul olacak sekilde giriniz: ").split(',')]
+                    lineNoToDelete = [int(x) for x in input("Silinecek satir numarasini veya numaralarini arada virgul olacak sekilde giriniz:\n").split(',')]
                     for number, line in enumerate(content):
                         if number+1 not in lineNoToDelete:
                             file.write(line)
@@ -44,6 +44,12 @@ class FileTool():
                 newStr = input("Yeni metni giriniz:\n")
                 for number, line in enumerate(content):
                     file.write(line.replace(oldStr,newStr))
+            if input_ == "j":
+                lineNo = input("Bir satir numarasi giriniz:\n")
+                jsonData = [json.dumps(d) for d in csv.DictReader(open(path))]
+                jsonDataLineStr = jsonData[int(lineNo)-2].replace("\\\"","")
+                print(jsonDataLineStr)
+                return jsonDataLineStr
 
 fileTool = FileTool()
-fileTool.Menu("letter_frequency.csv")
+fileTool.SelectFileOperation("letter_frequency.csv")
