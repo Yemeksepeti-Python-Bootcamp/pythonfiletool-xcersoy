@@ -1,7 +1,7 @@
 import csv, json
 
-class FileTool():
-    def SelectFileOperation(self,path):
+class FileToolClass():
+    def FileOperations(self,path):
         with open(path,"r+",encoding="utf-8") as file:
             content = file.readlines()
             input_ = input("Dosyada arama yapmak icin 's', silme yapmak icin 'd', ekleme yapmak icin 'a', guncelleme yapmak icin 'u', belli bir satırı JSON'a cevirmek icin 'j' karakterini yaziniz:\n")
@@ -45,11 +45,8 @@ class FileTool():
                 for number, line in enumerate(content):
                     file.write(line.replace(oldStr,newStr))
             if input_ == "j":
-                lineNo = input("Bir satir numarasi giriniz:\n")
+                lineNo = input("Bu islem secmis oldugunuz satiri JSON formatina cevirerek konsola yazdiracak ve return ederek bir degiskene atamaniza olanak saglayacaktir.\nBir satir numarasi giriniz:\n")
                 jsonData = [json.dumps(d) for d in csv.DictReader(open(path))]
                 jsonDataLineStr = jsonData[int(lineNo)-2].replace("\\\"","")
                 print(jsonDataLineStr)
                 return jsonDataLineStr
-
-fileTool = FileTool()
-fileTool.SelectFileOperation("letter_frequency.csv")
