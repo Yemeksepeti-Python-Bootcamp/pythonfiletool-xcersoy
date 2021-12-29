@@ -2,7 +2,7 @@ import csv, json
 
 class FileToolClass():
     def __init__(self):
-        print("\n* Varolan bir dosya üzerinde islem yapmak icin FileOperations() metodunu\n* Basliklarini sizin belirlediginiz yeni bir CSV dosyası yaratmak icin NewFile() metodunu [OR: NewFile(\"ad\",\"soyad\")]\n* Basliklarin sutun sayisina gore otomatik yaratildigi yeni bir CSV dosyasi yaratmak icin NewFileAuto() metodunu cagiriniz.\n")
+        print("\n* Varolan bir dosya üzerinde islem yapmak icin FileOperations() metodunu\n* Basliklarini sizin belirlediginiz yeni bir CSV dosyası yaratmak icin NewFile() metodunu [OR: NewFile(\"Ad,Soyad\")]\n* Basliklarin sutun sayisina gore otomatik yaratildigi yeni bir CSV dosyasi yaratmak icin NewFileAuto() metodunu cagiriniz.\n")
     
     def FileOperations(self,path):
         with open(path,"r+",encoding="utf-8") as file:
@@ -54,17 +54,25 @@ class FileToolClass():
                 print(jsonDataLineStr)
                 return jsonDataLineStr
 
-    def NewFile(self,*fields):
+    def NewFile(self,fields):
         fileName = input("Yaratilacak CSV dosyasinin ismini giriniz:\n")
+        titleList = fields.split(',')
+        titleStr = ""
+        for i in titleList:
+            titleStr = titleStr + f"\"{i}\","
+        titleStr = titleStr[:-1]
         with open(fileName+".csv","w+",encoding="utf-8") as newFile:
-            newFile.write(fields)
+            newFile.write(titleStr)
 
     def NewFileAuto(self):
         fileName = input("Yaratilacak CSV dosyasinin ismini giriniz:\n")
         colCount = input("Yeni dosya kac sutundan olusmalidir?:\n")
         i = 0
-        while i < colCount:
-            titles = titles + i+1 + ","
+        titles = ""
+        while i < int(colCount):
+            titles = titles + f"\"{i+1}\","
+            i+=1
+        titles = titles[:-1]
         with open(fileName+".csv","w+",encoding="utf-8") as newFile:
             newFile.write(titles)
         
