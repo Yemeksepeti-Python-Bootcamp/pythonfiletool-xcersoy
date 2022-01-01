@@ -15,7 +15,7 @@ class FileToolClass():
     def Menu(self):
         with open(self.path,"r+",encoding="utf-8") as file:
             content = file.readlines()
-        input_ = input("Search function: 1\nDelete function: 2\nAppend function: 3\nUpdate function: 4\nJSON function: 5\n")
+        input_ = input("Search function: 1\nDelete function: 2\nAppend function: 3\nUpdate function: 4\nJSON function: 5\nMerge Function: 6\n")
         if input_ == "1":
             funcSearch(content)
         if input_ == "2":
@@ -26,6 +26,8 @@ class FileToolClass():
             funcUpdate(file,content)
         if input_ == "5":
             funcJson(self)
+        if input_ == "6":
+            funcMerge(self.path)
 
 def PathAndFields(path,fields):
     with open(path,"r+",encoding="utf-8") as file:
@@ -127,3 +129,26 @@ def funcJson(self):
     jsonDataLineStr = jsonData[int(lineNo)-2].replace("\\\"","")
     print(jsonDataLineStr)
     return jsonDataLineStr
+
+def funcMerge(path):
+    file3Name = input("Enter file name to be created:\n")
+    f2 = input("Enter path of second file:\n")
+    with open(f2,"r+",encoding="utf-8") as file2:
+        with open (path,"r+") as file:
+            file2Header = file2.readline(0)
+            fileHeader = file.readline(0)
+            content = file2.readlines()
+            file2.seek(0)
+            file2.truncate()
+            for number, line in enumerate(content):
+                if number != 0:
+                    file2.write(line)  
+    if fileHeader == file2Header:
+        with open(f2,"r+",encoding="utf-8") as file2:
+            with open (path,"r+") as file:
+                fileData = file.read()
+                file2Data = file2.read()
+                fileData += "\n"
+                fileData += file2Data
+    with open (file3Name+".csv","w") as f3:
+        f3.write(fileData)
